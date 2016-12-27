@@ -65,12 +65,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -80,6 +83,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datasets\dsBalance.cs">
+      <DependentUpon>dsBalance.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Datasets\dsBalance.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBalance.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -131,6 +142,12 @@
     <Compile Include="UserControls\Items\ucListItem.Designer.cs">
       <DependentUpon>ucListItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Reports\ucReportYear.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reports\ucReportYear.Designer.cs">
+      <DependentUpon>ucReportYear.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Sales\ucManualSale.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -173,6 +190,7 @@
     <Compile Include="UserControls\Sales\ucGetTicket.Designer.cs">
       <DependentUpon>ucGetTicket.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Informes\Report.rdlc" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +224,9 @@
     <EmbeddedResource Include="UserControls\Items\ucListItem.resx">
       <DependentUpon>ucListItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reports\ucReportYear.resx">
+      <DependentUpon>ucReportYear.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Sales\ucManualSale.resx">
       <DependentUpon>ucManualSale.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,6 +253,17 @@
     </None>
     <None Include="CharlotteBBDD.sqlite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Datasets\dsBalance.xsc">
+      <DependentUpon>dsBalance.xsd</DependentUpon>
+    </None>
+    <None Include="Datasets\dsBalance.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBalance.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Datasets\dsBalance.xss">
+      <DependentUpon>dsBalance.xsd</DependentUpon>
     </None>
     <None Include="Properties\DataSources\CharlotteBDEntities.datasource" />
     <None Include="Properties\Settings.settings">

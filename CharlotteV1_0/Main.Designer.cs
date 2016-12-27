@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.pMainMenu = new System.Windows.Forms.Panel();
+            this.btnReports = new System.Windows.Forms.Button();
+            this.btnHistoric = new System.Windows.Forms.Button();
             this.btnManualSale = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnCierreCaja = new System.Windows.Forms.Button();
@@ -39,13 +41,13 @@
             this.btnStock = new System.Windows.Forms.Button();
             this.btnProvider = new System.Windows.Forms.Button();
             this.pContent = new System.Windows.Forms.Panel();
-            this.btnHistoric = new System.Windows.Forms.Button();
             this.pMainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pMainMenu
             // 
             this.pMainMenu.BackColor = System.Drawing.Color.Beige;
+            this.pMainMenu.Controls.Add(this.btnReports);
             this.pMainMenu.Controls.Add(this.btnHistoric);
             this.pMainMenu.Controls.Add(this.btnManualSale);
             this.pMainMenu.Controls.Add(this.btnExit);
@@ -60,11 +62,35 @@
             this.pMainMenu.Size = new System.Drawing.Size(199, 730);
             this.pMainMenu.TabIndex = 0;
             // 
+            // btnReports
+            // 
+            this.btnReports.BackColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnReports.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.Location = new System.Drawing.Point(0, 603);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(193, 62);
+            this.btnReports.TabIndex = 9;
+            this.btnReports.Text = "INFORMES";
+            this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
+            // 
+            // btnHistoric
+            // 
+            this.btnHistoric.BackColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnHistoric.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistoric.Location = new System.Drawing.Point(0, 454);
+            this.btnHistoric.Name = "btnHistoric";
+            this.btnHistoric.Size = new System.Drawing.Size(193, 44);
+            this.btnHistoric.TabIndex = 8;
+            this.btnHistoric.Text = "HISTORICO CIERRE";
+            this.btnHistoric.UseVisualStyleBackColor = false;
+            this.btnHistoric.Click += new System.EventHandler(this.btnHistoric_Click);
+            // 
             // btnManualSale
             // 
             this.btnManualSale.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.btnManualSale.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnManualSale.Location = new System.Drawing.Point(3, 410);
+            this.btnManualSale.Location = new System.Drawing.Point(3, 389);
             this.btnManualSale.Name = "btnManualSale";
             this.btnManualSale.Size = new System.Drawing.Size(193, 62);
             this.btnManualSale.TabIndex = 7;
@@ -76,7 +102,7 @@
             // 
             this.btnExit.BackColor = System.Drawing.Color.BurlyWood;
             this.btnExit.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(3, 635);
+            this.btnExit.Location = new System.Drawing.Point(3, 666);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(193, 62);
             this.btnExit.TabIndex = 6;
@@ -88,7 +114,7 @@
             // 
             this.btnCierreCaja.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.btnCierreCaja.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCierreCaja.Location = new System.Drawing.Point(3, 528);
+            this.btnCierreCaja.Location = new System.Drawing.Point(3, 503);
             this.btnCierreCaja.Name = "btnCierreCaja";
             this.btnCierreCaja.Size = new System.Drawing.Size(193, 101);
             this.btnCierreCaja.TabIndex = 5;
@@ -102,7 +128,7 @@
             this.btnNewTicket.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewTicket.Location = new System.Drawing.Point(3, 275);
             this.btnNewTicket.Name = "btnNewTicket";
-            this.btnNewTicket.Size = new System.Drawing.Size(193, 129);
+            this.btnNewTicket.Size = new System.Drawing.Size(193, 113);
             this.btnNewTicket.TabIndex = 4;
             this.btnNewTicket.Text = "REALIZAR VENTA";
             this.btnNewTicket.UseVisualStyleBackColor = false;
@@ -165,18 +191,6 @@
             this.pContent.Size = new System.Drawing.Size(809, 730);
             this.pContent.TabIndex = 1;
             // 
-            // btnHistoric
-            // 
-            this.btnHistoric.BackColor = System.Drawing.Color.DarkGoldenrod;
-            this.btnHistoric.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHistoric.Location = new System.Drawing.Point(0, 478);
-            this.btnHistoric.Name = "btnHistoric";
-            this.btnHistoric.Size = new System.Drawing.Size(193, 44);
-            this.btnHistoric.TabIndex = 8;
-            this.btnHistoric.Text = "HISTORICO CIERRE";
-            this.btnHistoric.UseVisualStyleBackColor = false;
-            this.btnHistoric.Click += new System.EventHandler(this.btnHistoric_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +223,7 @@
         public System.Windows.Forms.Panel pContent;
         private System.Windows.Forms.Button btnManualSale;
         private System.Windows.Forms.Button btnHistoric;
+        private System.Windows.Forms.Button btnReports;
     }
 }
 

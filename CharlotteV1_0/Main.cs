@@ -147,8 +147,15 @@ namespace CharlotteV1_0
                 Global.mainForm.pContent.Controls.Clear();
                 pContent.Controls.Add(content);
             }
+
         #endregion
 
-
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            UserControl content = new ucReportYear();
+            Global.mainForm.pContent.Controls.Clear();
+            pContent.Controls.Add(content);
+        }
     }
+    
 }

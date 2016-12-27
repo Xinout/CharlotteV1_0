@@ -74,10 +74,18 @@ namespace DAL
 
         //VENTAS DEL DIA
         private String SQLInsertSalesDayTicket = "SELECT ARTICULO.DESCRIPCION, LINEA_TICKET.TOTAL, LINEA_TICKET.CANTIDAD, " +
-                                                 "TICKET.TARJETA FROM TICKET " + 
+                                                 "TICKET.TARJETA FROM TICKET " +
                                                  "INNER JOIN LINEA_TICKET ON TICKET.ID = LINEA_TICKET.ID_TICKET " +
                                                  "INNER JOIN ARTICULO ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
                                                  "WHERE NOT(TICKET.REGALO = 1 AND TICKET.TARJETA = 0 AND TICKET.EFECTIVO = 0) AND TICKET.FECHA = ?";
+
+        //BALANCE ANUAL POR PROVEEDOR
+        private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(LINEA_FACTURA.IMPORTE),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
+                                                        "INNER JOIN FACTURA ON PROVEEDOR.ID = FACTURA.ID_PROVEEDOR " +
+                                                        "INNER JOIN LINEA_FACTURA ON FACTURA.ID = LINEA_FACTURA.ID_FACTURA " +
+                                                        "LEFT OUTER JOIN ARTICULO ON FACTURA.ID = ARTICULO.ID_FACTURA " +
+                                                        "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
+                                                        "GROUP BY PROVEEDOR.NOMBRE ";
 
         private String prueba = "SELECT FACTURA.FECHA, PROVEEDOR.NOMBRE" +
                                                  "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
@@ -216,7 +224,7 @@ namespace DAL
 
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter();
                 DataTable proveedores = new DataTable();
-                
+
                 adapter.SelectCommand = command;
                 adapter.Fill(proveedores);
 
@@ -224,7 +232,7 @@ namespace DAL
 
                 return proveedores;
             }
-            catch( Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -937,8 +945,8 @@ namespace DAL
         public bool deleteTicketSQL(int id)
         {
             try
-            {   if (deleteAllLinesTicketSQL(id))
-                { 
+            { if (deleteAllLinesTicketSQL(id))
+                {
                     openConnection();
 
                     SQLiteCommand command = connection.CreateCommand();
@@ -1009,7 +1017,7 @@ namespace DAL
                 SQLiteCommand command = connection.CreateCommand();
                 command.CommandText = SQLInsertSalesDayTicket;
 
-                command.Parameters.AddWithValue("FECHA", date); 
+                command.Parameters.AddWithValue("FECHA", date);
 
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter();
                 DataTable sales = new DataTable();
@@ -1104,6 +1112,28 @@ namespace DAL
 
         }
 
+        #endregion
+
+        #region "Balances"
+        public DataTable getProvBalance()
+        {
+            openConnection();
+
+            SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = SQLGetProvBalanceAnual;
+
+            //command.Parameters.AddWithValue("ID_TICKET", idTicket);
+
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            DataTable balance = new DataTable();
+
+            adapter.SelectCommand = command;
+            adapter.Fill(balance);
+
+            closeConnection();
+
+            return balance;
+        } 
         #endregion
 
     }
