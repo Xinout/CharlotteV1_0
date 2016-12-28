@@ -23,7 +23,7 @@ namespace CharlotteV1_0
             Cursor.Current = Cursors.WaitCursor;
             Microsoft.Reporting.WinForms.ReportDataSource datasource = new 
                 Microsoft.Reporting.WinForms.ReportDataSource("dsBalance",
-          Global.common.getProvBalance());
+          Global.common.getProvBalance(String.Format("{0:yyyyMMdd}", dtpDateInit.Value), String.Format("{0:yyyyMMdd}", dtpDateClose.Value)));
 
             DataTable dtDates = new DataTable();
             dtDates.Columns.Add("Ini");

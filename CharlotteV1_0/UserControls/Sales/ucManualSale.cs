@@ -118,7 +118,7 @@ namespace CharlotteV1_0
                         if (saveTicket(bTicketRegalo, !bEfectivo, dEfectivo, getTotal(), ref idTicket))
                         {
 
-                            aItems = new string[dgvItem.Rows.Count, 5];
+                            aItems = new string[dgvItem.Rows.Count, 6];
 
                             int cont = 0;
                             foreach (DataGridViewRow row in dgvItem.Rows)
@@ -128,7 +128,8 @@ namespace CharlotteV1_0
                                 aItems[cont, 2] = row.Cells[1].Value.ToString();
                                 aItems[cont, 3] = row.Cells[2].Value.ToString().Replace(".", ",");
                                 aItems[cont, 4] = row.Cells[3].Value.ToString().Replace(".", ",");
-                                cont++;
+                                aItems[cont, 5] = "0";
+                            cont++;
                             }
 
 

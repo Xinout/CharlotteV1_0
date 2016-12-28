@@ -81,10 +81,11 @@ namespace DAL
 
         //BALANCE ANUAL POR PROVEEDOR
         private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(LINEA_FACTURA.IMPORTE),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
-                                                        "INNER JOIN FACTURA ON PROVEEDOR.ID = FACTURA.ID_PROVEEDOR " +
-                                                        "INNER JOIN LINEA_FACTURA ON FACTURA.ID = LINEA_FACTURA.ID_FACTURA " +
-                                                        "LEFT OUTER JOIN ARTICULO ON FACTURA.ID = ARTICULO.ID_FACTURA " +
+                                                        "LEFT OUTER JOIN FACTURA ON PROVEEDOR.ID = FACTURA.ID_PROVEEDOR AND substr(FACTURA.FECHA,7)||substr(FACTURA.FECHA,4,2)||substr(FACTURA.FECHA,1,2) BETWEEN ? AND ? " +
+                                                        "LEFT OUTER JOIN LINEA_FACTURA ON FACTURA.ID = LINEA_FACTURA.ID_FACTURA " +
+                                                        "LEFT OUTER JOIN ARTICULO ON LINEA_FACTURA.ID_ARTICULO = ARTICULO.ID " +
                                                         "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
+                                                        "LEFT OUTER JOIN TICKET ON LINEA_TICKET.ID_TICKET = TICKET.ID AND substr(TICKET.FECHA,7)||substr(TICKET.FECHA,4,2)||substr(TICKET.FECHA,1,2) BETWEEN ? AND ?" +
                                                         "GROUP BY PROVEEDOR.NOMBRE ";
 
         private String prueba = "SELECT FACTURA.FECHA, PROVEEDOR.NOMBRE" +
@@ -724,8 +725,9 @@ namespace DAL
 
                 command.Parameters.AddWithValue("ID_FACTURA", idInvoice);
                 command.Parameters.AddWithValue("ID_ARTICULO", idItem);
-                command.Parameters.AddWithValue("IMPORTE", cost);
                 command.Parameters.AddWithValue("CANTIDAD", cantidad);
+                command.Parameters.AddWithValue("IMPORTE", cost);
+                
 
                 command.ExecuteNonQuery();
 
@@ -1115,14 +1117,17 @@ namespace DAL
         #endregion
 
         #region "Balances"
-        public DataTable getProvBalance()
+        public DataTable getProvBalance(string strIni, string strFin)
         {
             openConnection();
 
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText = SQLGetProvBalanceAnual;
 
-            //command.Parameters.AddWithValue("ID_TICKET", idTicket);
+            command.Parameters.AddWithValue("FECHA_INI", strIni);
+            command.Parameters.AddWithValue("FECHA_FIN", strFin);
+            command.Parameters.AddWithValue("FECHA_INI2", strIni);
+            command.Parameters.AddWithValue("FECHA_FIN2", strFin);
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             DataTable balance = new DataTable();
