@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvItem = new System.Windows.Forms.DataGridView();
-            this.colRef = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPVP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnFilter = new System.Windows.Forms.Panel();
             this.lbItem = new System.Windows.Forms.Label();
             this.tbQuant = new System.Windows.Forms.TextBox();
@@ -59,6 +54,14 @@
             this.btnGetTicket = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.lbTotal = new System.Windows.Forms.Label();
+            this.colRef = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPVP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tbDescuento = new System.Windows.Forms.TextBox();
+            this.lbDescuento = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).BeginInit();
             this.pnFilter.SuspendLayout();
             this.SuspendLayout();
@@ -69,32 +72,33 @@
             this.dgvItem.AllowUserToDeleteRows = false;
             this.dgvItem.AllowUserToResizeColumns = false;
             this.dgvItem.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
-            this.dgvItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.DarkGoldenrod;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvItem.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgvItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkGoldenrod;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvItem.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItem.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colRef,
             this.colDescripcion,
             this.colPVP,
             this.colCantidad,
+            this.colDescuento,
             this.colDelete});
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvItem.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvItem.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvItem.Location = new System.Drawing.Point(15, 238);
             this.dgvItem.Name = "dgvItem";
             this.dgvItem.ReadOnly = true;
@@ -103,45 +107,12 @@
             this.dgvItem.TabIndex = 24;
             this.dgvItem.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItem_CellContentClick);
             // 
-            // colRef
-            // 
-            this.colRef.HeaderText = "Referencia";
-            this.colRef.Name = "colRef";
-            this.colRef.ReadOnly = true;
-            this.colRef.Width = 105;
-            // 
-            // colDescripcion
-            // 
-            this.colDescripcion.HeaderText = "Descripcion";
-            this.colDescripcion.Name = "colDescripcion";
-            this.colDescripcion.ReadOnly = true;
-            this.colDescripcion.Width = 270;
-            // 
-            // colPVP
-            // 
-            this.colPVP.HeaderText = "PVP";
-            this.colPVP.Name = "colPVP";
-            this.colPVP.ReadOnly = true;
-            // 
-            // colCantidad
-            // 
-            this.colCantidad.HeaderText = "Cantidad";
-            this.colCantidad.Name = "colCantidad";
-            this.colCantidad.ReadOnly = true;
-            // 
-            // colDelete
-            // 
-            this.colDelete.HeaderText = "";
-            this.colDelete.Name = "colDelete";
-            this.colDelete.ReadOnly = true;
-            this.colDelete.Text = "Quitar";
-            this.colDelete.UseColumnTextForButtonValue = true;
-            this.colDelete.Width = 200;
-            // 
             // pnFilter
             // 
             this.pnFilter.BackColor = System.Drawing.Color.Wheat;
             this.pnFilter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnFilter.Controls.Add(this.tbDescuento);
+            this.pnFilter.Controls.Add(this.lbDescuento);
             this.pnFilter.Controls.Add(this.lbItem);
             this.pnFilter.Controls.Add(this.tbQuant);
             this.pnFilter.Controls.Add(this.lbQuant);
@@ -378,6 +349,64 @@
             this.lbTotal.TabIndex = 55;
             this.lbTotal.Text = "0.00 €";
             // 
+            // colRef
+            // 
+            this.colRef.HeaderText = "Referencia";
+            this.colRef.Name = "colRef";
+            this.colRef.ReadOnly = true;
+            this.colRef.Width = 105;
+            // 
+            // colDescripcion
+            // 
+            this.colDescripcion.HeaderText = "Descripcion";
+            this.colDescripcion.Name = "colDescripcion";
+            this.colDescripcion.ReadOnly = true;
+            this.colDescripcion.Width = 270;
+            // 
+            // colPVP
+            // 
+            this.colPVP.HeaderText = "PVP";
+            this.colPVP.Name = "colPVP";
+            this.colPVP.ReadOnly = true;
+            // 
+            // colCantidad
+            // 
+            this.colCantidad.HeaderText = "Cantidad";
+            this.colCantidad.Name = "colCantidad";
+            this.colCantidad.ReadOnly = true;
+            // 
+            // colDescuento
+            // 
+            this.colDescuento.HeaderText = "Descuento";
+            this.colDescuento.Name = "colDescuento";
+            this.colDescuento.ReadOnly = true;
+            // 
+            // colDelete
+            // 
+            this.colDelete.HeaderText = "";
+            this.colDelete.Name = "colDelete";
+            this.colDelete.ReadOnly = true;
+            this.colDelete.Text = "Quitar";
+            this.colDelete.UseColumnTextForButtonValue = true;
+            // 
+            // tbDescuento
+            // 
+            this.tbDescuento.Location = new System.Drawing.Point(503, 74);
+            this.tbDescuento.Name = "tbDescuento";
+            this.tbDescuento.Size = new System.Drawing.Size(60, 20);
+            this.tbDescuento.TabIndex = 19;
+            // 
+            // lbDescuento
+            // 
+            this.lbDescuento.AutoSize = true;
+            this.lbDescuento.Font = new System.Drawing.Font("Times New Roman", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDescuento.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbDescuento.Location = new System.Drawing.Point(419, 74);
+            this.lbDescuento.Name = "lbDescuento";
+            this.lbDescuento.Size = new System.Drawing.Size(69, 16);
+            this.lbDescuento.TabIndex = 18;
+            this.lbDescuento.Text = "Descuento:";
+            // 
             // ucManualSale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,6 +464,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPVP;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescuento;
         private System.Windows.Forms.DataGridViewButtonColumn colDelete;
+        private System.Windows.Forms.TextBox tbDescuento;
+        private System.Windows.Forms.Label lbDescuento;
     }
 }

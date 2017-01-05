@@ -760,7 +760,13 @@ namespace CharlotteV1_0
                     double.TryParse(row.Cells[5].Value.ToString(), out dDesc);
 
                     dAuxCostDesc = dPrice - (dPrice * (dDesc / 100));
-                    dTotal += dAuxCostDesc * iAmount;             
+
+                    if (dDesc > 0)
+                    {
+                        dAuxCostDesc = redondea(dAuxCostDesc);
+                    }
+
+                dTotal += dAuxCostDesc * iAmount;             
             }
 
                 return dTotal;
@@ -782,7 +788,13 @@ namespace CharlotteV1_0
                         int.TryParse(row.Cells[4].Value.ToString(), out iAmount);
 
                         dAuxCost = dPrice - (dPrice * (dDesc / 100));
-                        dTotal += dAuxCost * iAmount;
+
+                        if (dDesc > 0)
+                        {
+                            dAuxCost = redondea(dAuxCost);
+                        }
+
+                        dTotal += dAuxCost * iAmount;      
                     }
 
                     lbTotal.Text = string.Format("{0:0.00} €", dTotal).ToString();
@@ -909,6 +921,15 @@ namespace CharlotteV1_0
                 Mail.gestionaError(ex.Message);Global.error = true;
                 MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private double redondea(double total)
+        {
+            double aux = total * 2;
+            aux = Math.Round(aux,MidpointRounding.AwayFromZero);
+            aux = aux / 2;
+
+            return aux;
         }
     }
 }

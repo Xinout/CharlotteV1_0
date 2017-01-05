@@ -49,6 +49,12 @@ namespace Utils
                     double.TryParse(aItems[i, 5], out dDesc);
 
                     dAuxCostDesc = dAuxCost - (dAuxCost * (dDesc / 100));
+
+                    if(dDesc > 0)
+                    {
+                        dAuxCostDesc = redondea(dAuxCostDesc);
+                    }
+
                     dTotal += (dAuxCostDesc * iAuxCant);
 
                     if (!bTicketRegalo)
@@ -99,7 +105,15 @@ namespace Utils
 
                 //Pie
                 Ticket1.TextoCentro("Factura simplificada\n");
-                Ticket1.TextoIzquierda("TK: "+ idTicket + " - " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + "\n");
+                if (idTicket == 0)
+                {
+                    Ticket1.TextoIzquierda(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + "\n");
+                }
+                else
+                {
+                    Ticket1.TextoIzquierda("TK: " + idTicket + " - " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + "\n");
+                }
+
                 Ticket1.TextoCentro("Gracias por su visita");
 
                 //Corta el ticket
@@ -394,6 +408,15 @@ namespace Utils
             }
 
             return true;
+        }
+
+        private double redondea(double total)
+        {
+            double aux = total * 2;
+            aux = Math.Round(aux, MidpointRounding.AwayFromZero);
+            aux = aux / 2;
+
+            return aux;
         }
 
     }

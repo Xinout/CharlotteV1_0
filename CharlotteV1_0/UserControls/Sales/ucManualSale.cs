@@ -29,7 +29,7 @@ namespace CharlotteV1_0
                     string texto = validate();
                     if (string.IsNullOrEmpty(texto))
                     {
-                        dgvItem.Rows.Add(tbRef.Text.Trim().ToUpper(), tbDescription.Text.ToUpper(), Convert.ToDouble(tbPVP.Text).ToString("#.##"), Convert.ToInt32(tbQuant.Text));
+                        dgvItem.Rows.Add(tbRef.Text.Trim().ToUpper(), tbDescription.Text.ToUpper(), Convert.ToDouble(tbPVP.Text).ToString("#.##"), Convert.ToInt32(tbQuant.Text),Convert.ToInt32(tbDescuento.Text));
                         calcultateTotal();
                     }
                     else
@@ -55,7 +55,7 @@ namespace CharlotteV1_0
                     {
                         int.TryParse(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), out Global.idProvider);
 
-                        if (e.ColumnIndex == 4)
+                        if (e.ColumnIndex == 5)
                         {
                             DialogResult result = MessageBox.Show("¿Quieres eliminar el articulo?", "Charlotte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -115,8 +115,8 @@ namespace CharlotteV1_0
 
                         double.TryParse(tbAmount.Text, out dEfectivo);
 
-                        if (saveTicket(bTicketRegalo, !bEfectivo, dEfectivo, getTotal(), ref idTicket))
-                        {
+                        //if (saveTicket(bTicketRegalo, !bEfectivo, dEfectivo, getTotal(), ref idTicket))
+                        //{
 
                             aItems = new string[dgvItem.Rows.Count, 6];
 
@@ -128,8 +128,8 @@ namespace CharlotteV1_0
                                 aItems[cont, 2] = row.Cells[1].Value.ToString();
                                 aItems[cont, 3] = row.Cells[2].Value.ToString().Replace(".", ",");
                                 aItems[cont, 4] = row.Cells[3].Value.ToString().Replace(".", ",");
-                                aItems[cont, 5] = "0";
-                            cont++;
+                                aItems[cont, 5] = row.Cells[4].Value.ToString().Replace(".", ",");
+                        cont++;
                             }
 
 
@@ -144,11 +144,11 @@ namespace CharlotteV1_0
                             Global.mainForm.pContent.Controls.Clear();
 
 
-                        }
+                        /*}
                         else
                         {
                             MessageBox.Show("Error, consultar administrador", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                        }*/
                     }
                     else
                     {
@@ -287,11 +287,20 @@ namespace CharlotteV1_0
                     {
                         double dPrice = 0;
                         int iAmount = 0;
+                        double dAuxCost, dDesc = 0;
                         double.TryParse(row.Cells[2].Value.ToString(), out dPrice);
                         int.TryParse(row.Cells[3].Value.ToString(), out iAmount);
+                        double.TryParse(row.Cells[4].Value.ToString(), out dDesc);
 
-                        dTotal += dPrice * iAmount;
-                    }
+                        dAuxCost = dPrice - (dPrice * (dDesc / 100));
+
+                        if (dDesc > 0)
+                        {
+                            dAuxCost = redondea(dAuxCost);
+                        }
+
+                    dTotal += dAuxCost * iAmount;
+                }
                 }
                 catch (Exception ex)
                 {
@@ -359,11 +368,20 @@ namespace CharlotteV1_0
                     {
                         double dPrice = 0;
                         int iAmount = 0;
+                        double dAuxCost, dDesc = 0;
                         double.TryParse(row.Cells[2].Value.ToString(), out dPrice);
                         int.TryParse(row.Cells[3].Value.ToString(), out iAmount);
+                        double.TryParse(row.Cells[4].Value.ToString(), out dDesc);
 
-                        dTotal += dPrice * iAmount;
-                    }
+                        dAuxCost = dPrice - (dPrice * (dDesc / 100));
+
+                        if (dDesc > 0)
+                        {
+                            dAuxCost = redondea(dAuxCost);
+                        }
+
+                    dTotal += dAuxCost * iAmount;
+                }
 
                     lbTotal.Text = string.Format("{0:0.00} €", dTotal).ToString();
                 }
@@ -372,6 +390,15 @@ namespace CharlotteV1_0
                     Mail.gestionaError(ex.Message);Global.error = true;
                     MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+            private double redondea(double total)
+            {
+                double aux = total * 2;
+                aux = Math.Round(aux, MidpointRounding.AwayFromZero);
+                aux = aux / 2;
+
+                return aux;
             }
         #endregion
     }

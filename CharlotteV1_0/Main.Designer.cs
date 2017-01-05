@@ -114,9 +114,9 @@
             // 
             this.btnCierreCaja.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.btnCierreCaja.Font = new System.Drawing.Font("Times New Roman", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCierreCaja.Location = new System.Drawing.Point(3, 503);
+            this.btnCierreCaja.Location = new System.Drawing.Point(1, 503);
             this.btnCierreCaja.Name = "btnCierreCaja";
-            this.btnCierreCaja.Size = new System.Drawing.Size(193, 101);
+            this.btnCierreCaja.Size = new System.Drawing.Size(193, 96);
             this.btnCierreCaja.TabIndex = 5;
             this.btnCierreCaja.Text = "CIERRE DE CAJA";
             this.btnCierreCaja.UseVisualStyleBackColor = false;
@@ -200,7 +200,7 @@
             this.Controls.Add(this.pMainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(1024, 768);
-            this.MinimumSize = new System.Drawing.Size(1024, 768);
+            this.MinimumSize = new System.Drawing.Size(1024, 726);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Charlotte - Moda y complementos";
