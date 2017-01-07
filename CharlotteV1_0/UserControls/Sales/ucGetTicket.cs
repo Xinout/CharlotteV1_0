@@ -461,7 +461,7 @@ namespace CharlotteV1_0
                             else
                             {
                                 dgvTicket.Rows.Add(idTicket.ToString(), "VALE", "DEVOLUCION",
-                                "-" + dtTicket.Rows[0][6].ToString(), "1", null, "1");
+                                "-" + dtTicket.Rows[0][6].ToString(), "1", "0",null, "1");
                                 calcultateTotal();
                             }
                         }
