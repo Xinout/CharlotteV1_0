@@ -14,6 +14,8 @@ namespace CharlotteV1_0
         public static int idItem = 0;
         public static int idTicket = 0;
         public static int idInvoice = 0;
+        public static int idInvoiceLine = 0;
+        public static int idTicketLine = 0;
 
         public static bool error = false;
     }
