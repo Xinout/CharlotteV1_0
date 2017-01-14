@@ -29,7 +29,13 @@ namespace CharlotteV1_0
                     string texto = validate();
                     if (string.IsNullOrEmpty(texto))
                     {
-                        dgvItem.Rows.Add(tbRef.Text.Trim().ToUpper(), tbDescription.Text.ToUpper(), Convert.ToDouble(tbPVP.Text).ToString("#.##"), Convert.ToInt32(tbQuant.Text),Convert.ToInt32(tbDescuento.Text));
+                        string descuento = "0";
+                        if (!string.IsNullOrEmpty(tbDescuento.Text))
+                        {
+                         descuento = Convert.ToInt32(tbDescuento.Text).ToString();
+                        }
+
+                        dgvItem.Rows.Add(tbRef.Text.Trim().ToUpper(), tbDescription.Text.ToUpper(), Convert.ToDouble(tbPVP.Text).ToString("#.##"), Convert.ToInt32(tbQuant.Text),descuento);
                         calcultateTotal();
                     }
                     else
@@ -113,7 +119,7 @@ namespace CharlotteV1_0
                     {
                         bEfectivo = rbCash.Checked;
 
-                        double.TryParse(tbAmount.Text, out dEfectivo);
+                        double.TryParse(tbAmount.Text.Replace(".", ","), out dEfectivo);
 
                         //if (saveTicket(bTicketRegalo, !bEfectivo, dEfectivo, getTotal(), ref idTicket))
                         //{

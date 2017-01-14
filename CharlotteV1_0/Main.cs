@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Utils;
+using System.Configuration;
 
 
 namespace CharlotteV1_0
@@ -124,22 +125,24 @@ namespace CharlotteV1_0
             {
                 try
                 {
-                Cursor.Current = Cursors.WaitCursor;
-                Mail.backup();
-                if (Global.error)
-                {
-                    Mail.sendMail();
+                    if (ConfigurationManager.AppSettings["BackupPath"].ToString() != "Y") {
+
+                        Cursor.Current = Cursors.WaitCursor;
+                        Mail.backup();
+                        if (Global.error)
+                        {
+                            Mail.sendMail();
+                        }          
+                        Cursor.Current = Cursors.Default;
+                    }
                 }
-                
-                Cursor.Current = Cursors.Default;
-            }
-                catch (Exception ex)
-                {
-                    Mail.gestionaError(ex.Message);Global.error = true;
-                    MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    catch (Exception ex)
+                    {
+                        Mail.gestionaError(ex.Message);Global.error = true;
+                        MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
                 }
-            }
 
             private void btnHistoric_Click(object sender, EventArgs e)
             {

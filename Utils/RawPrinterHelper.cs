@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Configuration;
 
 namespace Utils
 {
@@ -83,19 +84,22 @@ namespace Utils
 
         public static bool SendStringToPrinter(string szPrinterName, string szString)
         {
-
-            //File.AppendAllText("log_CHARLOTTE.txt", szString + "\n", Encoding.UTF8);//SAV QUITAR
-
-            IntPtr pBytes;
-            Int32 dwCount;
-            // How many characters are in the string?
-            dwCount = szString.Length;
-            // Assume that the printer is expecting ANSI text, and then convert
-            // the string to ANSI text.
-            pBytes = Marshal.StringToCoTaskMemAnsi(szString);
-            // Send the converted ANSI string to the printer.
-            SendBytesToPrinter(szPrinterName, pBytes, dwCount);
-            Marshal.FreeCoTaskMem(pBytes);
+            if (ConfigurationManager.AppSettings["BackupPath"].ToString() == "Y")
+            {
+                File.AppendAllText("log_CHARLOTTE.txt", szString + "\n", Encoding.UTF8);
+            }
+            else {
+                IntPtr pBytes;
+                Int32 dwCount;
+                // How many characters are in the string?
+                dwCount = szString.Length;
+                // Assume that the printer is expecting ANSI text, and then convert
+                // the string to ANSI text.
+                pBytes = Marshal.StringToCoTaskMemAnsi(szString);
+                // Send the converted ANSI string to the printer.
+                SendBytesToPrinter(szPrinterName, pBytes, dwCount);
+                Marshal.FreeCoTaskMem(pBytes);
+            }
 
             return true;
         }

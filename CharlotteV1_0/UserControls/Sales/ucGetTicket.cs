@@ -45,7 +45,7 @@ namespace CharlotteV1_0
                     {
                         bEfectivo = rbCash.Checked;
 
-                        double.TryParse(tbAmount.Text, out dEfectivo);
+                        double.TryParse(tbAmount.Text.Replace(".",","), out dEfectivo);
 
                         if (saveTicket(bTicketRegalo, !bEfectivo, dEfectivo, getTotal(), ref idTicket))
                         {
@@ -548,7 +548,7 @@ namespace CharlotteV1_0
                             return "Debe rellenar el cantidad de efectivo";
                         }
 
-                        if (dCash < dTotal)
+                        if (dCash < redondea(dTotal))
                         {
                             return "La cantidad de efectivo es menor que el total";
                         }

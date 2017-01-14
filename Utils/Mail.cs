@@ -14,14 +14,14 @@ namespace Utils
         {
             try
             {
-                MailMessage mail = new MailMessage("charlottetiendasoria@gmail.com", "s_alcu@hotmail.com");
+                MailMessage mail = new MailMessage(ConfigurationManager.AppSettings["USER"].ToString(), ConfigurationManager.AppSettings["CORREO_ERRORES"].ToString());
                 SmtpClient client = new SmtpClient();
                 client.Port = 587;
                 client.EnableSsl = true;
                 client.Timeout = 10000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("charlottetiendasoria@gmail.com", "nome@cuerdo");
+                client.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["USER"].ToString(), ConfigurationManager.AppSettings["PASS"].ToString());
                 client.Host = "smtp.gmail.com";
                 mail.Subject = "Mantenimiento Charlotte";
                 mail.Body = "ERROR, ver fichero adjunto";

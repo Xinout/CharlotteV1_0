@@ -42,6 +42,7 @@ namespace DAL
         private String SQLGetLineInvProv = "SELECT * FROM LINEA_FACTURA WHERE ID = ?";
         private String SQLUpdateProvInvLine = "UPDATE LINEA_FACTURA SET CANTIDAD = ?, IMPORTE = ? WHERE ID = ?";
         private String SQLDeleteInvProvIle = "DELETE FROM LINEA_FACTURA WHERE ID = ?";
+        private String SQLGetLineInvProvByItemID = "SELECT * FROM LINEA_FACTURA WHERE ID_ARTICULO = ?";
 
         //ARTICULOS
         private String SQLInsertItem = "INSERT INTO ARTICULO(REFERENCIA, ID_FACTURA, DESCRIPCION, PVP, DISPONIBLE) VALUES(?, ?, ?, ?, ?)";
@@ -925,6 +926,41 @@ namespace DAL
                 closeConnection();
 
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public bool existItemInvoiceLineSQL(int idItem)
+        {
+            try
+            {
+                openConnection();
+
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = SQLGetLineInvProvByItemID;
+
+                command.Parameters.AddWithValue("ID_ARTICULO", idItem);
+
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                DataTable invoicesLines = new DataTable();
+
+                adapter.SelectCommand = command;
+                adapter.Fill(invoicesLines);
+
+                closeConnection();
+
+                if (invoicesLines.Rows.Count > 0)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+                
             }
             catch (Exception ex)
             {

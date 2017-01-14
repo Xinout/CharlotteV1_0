@@ -123,28 +123,32 @@ namespace CharlotteV1_0
                         }
                         else if (e.ColumnIndex == 7)
                         {
-                            if (Global.idItem == 1)
-                            {
-                                MessageBox.Show("Este articulo no se puede eliminar", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                DialogResult result = MessageBox.Show("¿Quieres eliminar el articulo?", "Charlotte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (Global.idItem == 1)
+                        {
+                            MessageBox.Show("Este articulo no se puede eliminar", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if(Global.common.existItemInvoiceLineSQL(Global.idItem)){
 
-                                if (result == DialogResult.Yes)
+                            MessageBox.Show("Este articulo no se puede eliminar, hay lineas de factura asociadas al articulo", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            DialogResult result = MessageBox.Show("¿Quieres eliminar el articulo?", "Charlotte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                if (Global.common.deleteItemSQL(Global.idItem))
                                 {
-                                    if (Global.common.deleteItemSQL(Global.idItem))
-                                    {
-                                        Global.idItem = 0;
-                                        dgvItem.Columns.Clear();
-                                        MessageBox.Show("Articulo eliminado correctamente", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                }
-                                else if (result == DialogResult.No)
-                                {
-                                    //...
+                                    Global.idItem = 0;
+                                    dgvItem.Columns.Clear();
+                                    MessageBox.Show("Articulo eliminado correctamente", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
+                            else if (result == DialogResult.No)
+                            {
+                                //...
+                            }
+                        }
                         }
                     }
                 }
