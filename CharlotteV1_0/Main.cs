@@ -125,7 +125,7 @@ namespace CharlotteV1_0
             {
                 try
                 {
-                    if (ConfigurationManager.AppSettings["BackupPath"].ToString() != "Y") {
+                    if (ConfigurationManager.AppSettings["Debug"].ToString() != "Y") {
 
                         Cursor.Current = Cursors.WaitCursor;
                         Mail.backup();

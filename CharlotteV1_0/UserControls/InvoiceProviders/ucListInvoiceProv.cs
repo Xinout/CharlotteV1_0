@@ -56,8 +56,8 @@ namespace CharlotteV1_0
                         dgvInvProv.DefaultCellStyle.ForeColor = Color.Black;
 
                     DataGridViewButtonColumn colEdit = new DataGridViewButtonColumn();
-                    colEdit.HeaderText = "Ver detalle";
-                    colEdit.Text = "VER DETALLE";
+                    colEdit.HeaderText = "Editar";
+                    colEdit.Text = "EDITAR";
                     colEdit.UseColumnTextForButtonValue = true;
                     colEdit.Width = 200;
 
@@ -96,15 +96,15 @@ namespace CharlotteV1_0
                 e.RowIndex >= 0)
                 {
                     int.TryParse(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), out Global.idInvoice);
-                    if (e.ColumnIndex == 3)
+                    if (e.ColumnIndex == 4)
                     {
                         Cursor.Current = Cursors.WaitCursor;
-                        UserControl content = new ucViewInvoiceProv();
+                        UserControl content = new ucEditInvoiceProv();
                         Global.mainForm.pContent.Controls.Clear();
                         Global.mainForm.pContent.Controls.Add(content);
                         Cursor.Current = Cursors.Default;
                     }
-                    else if (e.ColumnIndex == 4)
+                    else if (e.ColumnIndex == 5)
                     {
 
                         DialogResult result = MessageBox.Show("¿Quieres anular la factura?", "Charlotte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

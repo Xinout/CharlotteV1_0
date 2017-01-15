@@ -80,46 +80,46 @@ namespace CharlotteV1_0
         }
 
         #region "Métodos Privados"
-        private void LoadLines()
-        {
-            try
-            {
-                DataTable listaItems = null;
+        //private void LoadLines()
+        //{
+        //    try
+        //    {
+        //        DataTable listaItems = null;
 
-                Cursor.Current = Cursors.WaitCursor;
+        //        Cursor.Current = Cursors.WaitCursor;
 
-                dgvItem.Columns.Clear();
-                dgvItem.DataSource = null;
+        //        dgvItem.Columns.Clear();
+        //        dgvItem.DataSource = null;
 
-                listaItems = Global.common.getAllLinesInvoiceSQL(Global.idInvoice);
+        //        listaItems = Global.common.getAllLinesInvoiceSQL(Global.idInvoice);
 
-                if ((listaItems != null) && (listaItems.Rows.Count > 0))
-                {
-                    dgvItem.DataSource = listaItems;
+        //        if ((listaItems != null) && (listaItems.Rows.Count > 0))
+        //        {
+        //            dgvItem.DataSource = listaItems;
 
-                    dgvItem.DefaultCellStyle.ForeColor = Color.Black;
+        //            dgvItem.DefaultCellStyle.ForeColor = Color.Black;
 
-                    dgvItem.EnableHeadersVisualStyles = false;
+        //            dgvItem.EnableHeadersVisualStyles = false;
 
-                }
-                else
-                {
-                    MessageBox.Show("No hay datos", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("No hay datos", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
 
-                Cursor.Current = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-                Mail.gestionaError(ex.Message); Global.error = true;
-                MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //        Cursor.Current = Cursors.Default;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Mail.gestionaError(ex.Message); Global.error = true;
+        //        MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
         #endregion
 
         private void ucEditItemInvoiceProv_Load(object sender, EventArgs e)
         {
-            LoadLines();
+            //LoadLines();
         }
 
         private void dgvItem_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -131,7 +131,7 @@ namespace CharlotteV1_0
                 if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
                 {
-                    int.TryParse(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), out Global.idInvoiceLine);
+                    //int.TryParse(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), out Global.idInvoiceLine);
                     if (e.ColumnIndex == 5)
                     {
                         Cursor.Current = Cursors.WaitCursor;
@@ -146,16 +146,16 @@ namespace CharlotteV1_0
 
                         if (result == DialogResult.Yes)
                         {
-                            if (Global.common.deleteProviderInvoiceLineSQL(Global.idInvoiceLine))
-                            {
-                                dgvItem.Columns.Clear();
-                                MessageBox.Show("Linea de Factura eliminada correctamente", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                LoadLines();
-                            }
-                            else
-                            {
-                                MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                            //if (Global.common.deleteProviderInvoiceLineSQL(Global.idInvoiceLine))
+                            //{
+                            //    dgvItem.Columns.Clear();
+                            //    MessageBox.Show("Linea de Factura eliminada correctamente", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //    LoadLines();
+                            //}
+                            //else
+                            //{
+                            //    MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //}
                         }
                         else if (result == DialogResult.No)
                         {
@@ -175,7 +175,7 @@ namespace CharlotteV1_0
         {
             try
             {
-                LoadLines();
+                //LoadLines();
 
                 dgvItem.DefaultCellStyle.ForeColor = Color.Black;
 

@@ -30,13 +30,11 @@ namespace CharlotteV1_0
 
                 Cursor.Current = Cursors.WaitCursor;
 
-                listaItems = Global.common.getLineInvoiceSQL(Global.idInvoiceLine);
+                listaItems = Global.common.getInvoiceSQL(Global.idInvoice);
 
                 if ((listaItems != null) && (listaItems.Rows.Count > 0))
                 {
-                    tbCantidad.Text = listaItems.Rows[0][3].ToString();
-                    tbImporte.Text = string.Format("{0:0.00}",listaItems.Rows[0][4]).ToString().Replace(".",",");
-
+                    tbTotal.Text = string.Format("{0:0.00}", listaItems.Rows[0][3]).ToString().Replace(".", ",");
                 }
                 else
                 {
@@ -57,7 +55,7 @@ namespace CharlotteV1_0
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                UserControl content = new ucViewInvoiceProv();
+                UserControl content = new ucListInvoiceProv();
                 Global.mainForm.pContent.Controls.Clear();
                 Global.mainForm.pContent.Controls.Add(content);
                 Cursor.Current = Cursors.Default;
@@ -80,7 +78,7 @@ namespace CharlotteV1_0
                 if (string.IsNullOrEmpty(strMessage))
                 { 
 
-                    if (Global.common.updateProviderInvoiceLineSQL(Global.idInvoiceLine, tbCantidad.Text, tbImporte.Text.Replace(",",".")))
+                    if (Global.common.updateProviderInvoiceTotalSQL(Global.idInvoice, tbTotal.Text.Replace(",",".")))
                     {
                         //DataTable listaLineas = null;
                         //listaLineas = Global.common.getAllLinesInvoiceSQL(Global.idInvoice);
@@ -98,9 +96,9 @@ namespace CharlotteV1_0
                         //    dTotal += dAux * dAuxInt;
                         //}
 
-                        MessageBox.Show("Linea de factura actualizada", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Total de factura actualizado", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Cursor.Current = Cursors.WaitCursor;
-                        UserControl content = new ucViewInvoiceProv();
+                        UserControl content = new ucListInvoiceProv();
                         Global.mainForm.pContent.Controls.Clear();
                         Global.mainForm.pContent.Controls.Add(content);
                         Cursor.Current = Cursors.Default;
@@ -126,21 +124,21 @@ namespace CharlotteV1_0
                 double dCash = 0;
                 int iCant = 0;
 
-                double.TryParse(tbImporte.Text.Replace(".",","), out dCash);
-                int.TryParse(tbCantidad.Text, out iCant);
+                double.TryParse(tbTotal.Text.Replace(".",","), out dCash);
+                //int.TryParse(tbCantidad.Text, out iCant);
 
                 if (dCash <= 0)
                 {
                    return "Debe rellenar el importe";
                 }
 
-                tbImporte.Text = string.Format("{0:0.00}", Math.Round(dCash, 2)).ToString().Replace(".", ",");  
+                tbTotal.Text = string.Format("{0:0.00}", Math.Round(dCash, 2)).ToString().Replace(".", ",");  
 
 
-                if (iCant <= 0)
-                {
-                    return "Debe rellenar la cantidad";
-                }
+                //if (iCant <= 0)
+                //{
+                //    return "Debe rellenar la cantidad";
+                //}
 
 
 

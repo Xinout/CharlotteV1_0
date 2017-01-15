@@ -21,31 +21,44 @@ namespace DAL
         private String SQLUpdateProv = "UPDATE PROVEEDOR SET NOMBRE = ?, DIRECCION = ?, TELEFONO = ? WHERE ID = ?";
         private String SQLDeleteProv = "DELETE FROM PROVEEDOR WHERE ID = ?";
 
-        //FACTURAS
-        private String SQLInsertInvProv = "INSERT INTO FACTURA(ID_PROVEEDOR, FECHA) VALUES(?, ?)";
-        private String SQLGetAllInvProv = "SELECT FACTURA.ID, FACTURA.FECHA, PROVEEDOR.NOMBRE FROM PROVEEDOR " +
-                                          "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
-                                          "WHERE FACTURA.FECHA = ?";
-        private String SQLGetFilInvProv = "SELECT FACTURA.ID, FACTURA.FECHA, PROVEEDOR.NOMBRE FROM PROVEEDOR " +
-                                          "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
+        //FACTURA BALANCE
+        private String SQLInsertInvProv = "INSERT INTO FACTURA_BALANCE(ID_PROVEEDOR, FECHA, TOTAL) VALUES(?, ?, ?)";
+        private String SQLGetAllInvProv = "SELECT FACTURA_BALANCE.ID, FACTURA_BALANCE.FECHA, PROVEEDOR.NOMBRE, FACTURA_BALANCE.TOTAL FROM PROVEEDOR " +
+                                          "INNER JOIN FACTURA_BALANCE ON FACTURA_BALANCE.ID_PROVEEDOR = PROVEEDOR.ID " +
+                                          "WHERE FACTURA_BALANCE.FECHA = ?";
+        private String SQLGetFilInvProv = "SELECT FACTURA_BALANCE.ID, FACTURA_BALANCE.FECHA, PROVEEDOR.NOMBRE, FACTURA_BALANCE.TOTAL FROM PROVEEDOR " +
+                                          "INNER JOIN FACTURA_BALANCE ON FACTURA_BALANCE.ID_PROVEEDOR = PROVEEDOR.ID " +
                                           "WHERE ";
-        private String SQLDeleteInvProv = "DELETE FROM FACTURA WHERE ID = ?";
-        private String SQLUpdateProvInvtotal = "UPDATE FACTURA SET CANTIDAD = ?, IMPORTE = ? WHERE ID = ?";
+        private String SQLDeleteInvProv = "DELETE FROM FACTURA_BALANCE WHERE ID = ?";
+        private String SQLUpdateProvInvTotal = "UPDATE FACTURA_BALANCE SET TOTAL = ? WHERE ID = ?";
+        private String SQLGetInvProv = "SELECT * FROM FACTURA_BALANCE WHERE ID = ?";
+
+
+        //FACTURAS
+        //private String SQLInsertInvProv = "INSERT INTO FACTURA(ID_PROVEEDOR, FECHA) VALUES(?, ?)";
+        //private String SQLGetAllInvProv = "SELECT FACTURA.ID, FACTURA.FECHA, PROVEEDOR.NOMBRE FROM PROVEEDOR " +
+        //                                  "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
+        //                                  "WHERE FACTURA.FECHA = ?";
+        //private String SQLGetFilInvProv = "SELECT FACTURA.ID, FACTURA.FECHA, PROVEEDOR.NOMBRE FROM PROVEEDOR " +
+        //                                  "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
+        //                                  "WHERE ";
+        //private String SQLDeleteInvProv = "DELETE FROM FACTURA WHERE ID = ?";
+        //private String SQLUpdateProvInvtotal = "UPDATE FACTURA SET CANTIDAD = ?, IMPORTE = ? WHERE ID = ?";
 
         //LINEAS FACTURA
-        private String SQLInsertLineInvProv = "INSERT INTO LINEA_FACTURA(ID_FACTURA, ID_ARTICULO, CANTIDAD, IMPORTE) VALUES(?, ?, ?, ?)";
-        private String SQLDeleteLineInvProv = "DELETE FROM LINEA_FACTURA WHERE ID = ?";
-        private String SQLDeleteAllLineInvProv = "DELETE FROM LINEA_FACTURA WHERE ID_FACTURA = ?";
-        private String SQLGetLinesInvoiceProvById = "SELECT LINEA_FACTURA.ID, ARTICULO.REFERENCIA, ARTICULO.DESCRIPCION, LINEA_FACTURA.CANTIDAD, LINEA_FACTURA.IMPORTE  FROM LINEA_FACTURA " +
-                                               "INNER JOIN ARTICULO ON ARTICULO.ID = LINEA_FACTURA.ID_ARTICULO " +
-                                               "WHERE LINEA_FACTURA.ID_FACTURA = ?";
-        private String SQLGetLineInvProv = "SELECT * FROM LINEA_FACTURA WHERE ID = ?";
-        private String SQLUpdateProvInvLine = "UPDATE LINEA_FACTURA SET CANTIDAD = ?, IMPORTE = ? WHERE ID = ?";
-        private String SQLDeleteInvProvIle = "DELETE FROM LINEA_FACTURA WHERE ID = ?";
-        private String SQLGetLineInvProvByItemID = "SELECT * FROM LINEA_FACTURA WHERE ID_ARTICULO = ?";
+        //private String SQLInsertLineInvProv = "INSERT INTO LINEA_FACTURA(ID_FACTURA, ID_ARTICULO, CANTIDAD, IMPORTE) VALUES(?, ?, ?, ?)";
+        //private String SQLDeleteLineInvProv = "DELETE FROM LINEA_FACTURA WHERE ID = ?";
+        //private String SQLDeleteAllLineInvProv = "DELETE FROM LINEA_FACTURA WHERE ID_FACTURA = ?";
+        //private String SQLGetLinesInvoiceProvById = "SELECT LINEA_FACTURA.ID, ARTICULO.REFERENCIA, ARTICULO.DESCRIPCION, LINEA_FACTURA.CANTIDAD, LINEA_FACTURA.IMPORTE  FROM LINEA_FACTURA " +
+        //                                       "INNER JOIN ARTICULO ON ARTICULO.ID = LINEA_FACTURA.ID_ARTICULO " +
+        //                                       "WHERE LINEA_FACTURA.ID_FACTURA = ?";
+        //private String SQLGetLineInvProv = "SELECT * FROM LINEA_FACTURA WHERE ID = ?";
+        //private String SQLUpdateProvInvLine = "UPDATE LINEA_FACTURA SET CANTIDAD = ?, IMPORTE = ? WHERE ID = ?";
+        //private String SQLDeleteInvProvIle = "DELETE FROM LINEA_FACTURA WHERE ID = ?";
+        //private String SQLGetLineInvProvByItemID = "SELECT * FROM LINEA_FACTURA WHERE ID_ARTICULO = ?";
 
         //ARTICULOS
-        private String SQLInsertItem = "INSERT INTO ARTICULO(REFERENCIA, ID_FACTURA, DESCRIPCION, PVP, DISPONIBLE) VALUES(?, ?, ?, ?, ?)";
+        private String SQLInsertItem = "INSERT INTO ARTICULO(REFERENCIA, ID_FACTURA, DESCRIPCION, PVP, DISPONIBLE, ID_PROVEEDOR) VALUES(?, ?, ?, ?, ?, ?)";
         private String SQLGetAllItem = "SELECT * FROM ARTICULO";
         private String SQLGetItem = "SELECT * FROM ARTICULO WHERE ID = ?";
         private String SQLGetFilItem = "SELECT * FROM ARTICULO WHERE ";
@@ -58,8 +71,7 @@ namespace DAL
         private String SQLUpdateItem = "UPDATE ARTICULO SET REFERENCIA = ?, DESCRIPCION = ?, PVP = ?, DISPONIBLE = ? WHERE ID = ?";
         private String SQLGetItemsByProv = "SELECT ARTICULO.* " +
                                                  "FROM ARTICULO " +
-                                                 "INNER JOIN FACTURA ON FACTURA.ID = ARTICULO.ID_FACTURA " +
-                                                 "INNER JOIN PROVEEDOR ON PROVEEDOR.ID = FACTURA.ID_PROVEEDOR " +
+                                                 "INNER JOIN PROVEEDOR ON PROVEEDOR.ID = ARTICULO.ID_PROVEEDOR " +
                                                  "WHERE ";
 
         //TICKETS
@@ -76,6 +88,7 @@ namespace DAL
         private String SQLGetLinesTicketById = "SELECT ARTICULO.REFERENCIA, ARTICULO.DESCRIPCION, LINEA_TICKET.CANTIDAD, LINEA_TICKET.TOTAL FROM LINEA_TICKET " +
                                                "INNER JOIN ARTICULO ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
                                                "WHERE LINEA_TICKET.ID_TICKET = ?";
+        private String SQLGetTicketLineByItemID = "SELECT * FROM LINEA_TICKET WHERE ID_ARTICULO = ?";
 
         //VENTAS DEL DIA
         private String SQLInsertSalesDayTicket = "SELECT ARTICULO.DESCRIPCION, LINEA_TICKET.TOTAL, LINEA_TICKET.CANTIDAD, " +
@@ -85,17 +98,16 @@ namespace DAL
                                                  "WHERE NOT(TICKET.REGALO = 1 AND TICKET.TARJETA = 0 AND TICKET.EFECTIVO = 0) AND TICKET.FECHA = ?";
 
         //BALANCE ANUAL POR PROVEEDOR
-        private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(LINEA_FACTURA.IMPORTE),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
-                                                        "LEFT OUTER JOIN FACTURA ON PROVEEDOR.ID = FACTURA.ID_PROVEEDOR AND substr(FACTURA.FECHA,7)||substr(FACTURA.FECHA,4,2)||substr(FACTURA.FECHA,1,2) BETWEEN ? AND ? " +
-                                                        "LEFT OUTER JOIN LINEA_FACTURA ON FACTURA.ID = LINEA_FACTURA.ID_FACTURA " +
-                                                        "LEFT OUTER JOIN ARTICULO ON LINEA_FACTURA.ID_ARTICULO = ARTICULO.ID " +
+        private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(FACTURA_BALANCE.TOTAL),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
+                                                        "LEFT OUTER JOIN FACTURA_BALANCE ON PROVEEDOR.ID = FACTURA_BALANCE.ID_PROVEEDOR AND substr(FACTURA_BALANCE.FECHA,7)||substr(FACTURA_BALANCE.FECHA,4,2)||substr(FACTURA_BALANCE.FECHA,1,2) BETWEEN ? AND ? " +
+                                                        "LEFT OUTER JOIN ARTICULO ON PROVEEDOR.ID = ARTICULO.ID_PROVEEDOR " +
                                                         "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
                                                         "LEFT OUTER JOIN TICKET ON LINEA_TICKET.ID_TICKET = TICKET.ID AND substr(TICKET.FECHA,7)||substr(TICKET.FECHA,4,2)||substr(TICKET.FECHA,1,2) BETWEEN ? AND ?" +
                                                         "GROUP BY PROVEEDOR.NOMBRE ";
 
-        private String prueba = "SELECT FACTURA.FECHA, PROVEEDOR.NOMBRE" +
-                                                 "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
-                                                 "WHERE TICKET.NOMBRE = ?";
+        //private String prueba = "SELECT FACTURA.FECHA, PROVEEDOR.NOMBRE" +
+        //                                         "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
+        //                                         "WHERE TICKET.NOMBRE = ?";
 
 
         #region "Constructor"
@@ -301,9 +313,9 @@ namespace DAL
 
         #endregion
 
-        #region "Métodos Factura"
+        #region "Métodos Factura Balance"
 
-        public long insertInvoiceProvSQL(int idProv, string dateInvoice)
+        public long insertInvoiceProvSQL(int idProv, string dateInvoice, double total)
         {
             try
             {
@@ -314,6 +326,7 @@ namespace DAL
 
                 command.Parameters.AddWithValue("ID_PROVEEDOR", idProv);
                 command.Parameters.AddWithValue("FECHA", dateInvoice);
+                command.Parameters.AddWithValue("TOTAL", total);
 
                 command.ExecuteNonQuery();
 
@@ -392,8 +405,8 @@ namespace DAL
         {
             try
             {
-                if (deleteAllLinesInvoiceSQL(id))
-                {
+                //if (deleteAllLinesInvoiceSQL(id))
+                //{
                     openConnection();
 
                     SQLiteCommand command = connection.CreateCommand();
@@ -406,9 +419,9 @@ namespace DAL
                     closeConnection();
 
                     return true;
-                }
+                //}
 
-                return false;
+                //return false;
             }
             catch (Exception ex)
             {
@@ -424,7 +437,7 @@ namespace DAL
                 openConnection();
 
                 SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLUpdateProvInvLine;
+                command.CommandText = SQLUpdateProvInvTotal;
 
                 command.Parameters.AddWithValue("TOTAL", total);
 
@@ -443,11 +456,39 @@ namespace DAL
 
         }
 
+        public DataTable getInvoiceSQL(int idInvoiceLine)
+        {
+            try
+            {
+                openConnection();
+
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = SQLGetInvProv;
+
+                command.Parameters.AddWithValue("ID_FACTURA", idInvoiceLine);
+
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                DataTable invoices = new DataTable();
+
+                adapter.SelectCommand = command;
+                adapter.Fill(invoices);
+
+                closeConnection();
+
+                return invoices;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         #endregion
 
         #region "Métodos Articulo"
 
-        public long insertItemSQL(string reference, long idInv, string description, double pvp, int cantidad)
+        public long insertItemSQL(string reference, long idInv, string description, double pvp, int cantidad, int idProv)
         {
             try
             {
@@ -461,6 +502,7 @@ namespace DAL
                 command.Parameters.AddWithValue("DESCRIPCION", description);
                 command.Parameters.AddWithValue("PVP", pvp);
                 command.Parameters.AddWithValue("DISPONIBLE", cantidad);
+                command.Parameters.AddWithValue("ID_PROVEEDOR", idProv);
 
                 command.ExecuteNonQuery();
 
@@ -745,229 +787,229 @@ namespace DAL
 
         #region "Métodos Linea Factura"
 
-        public long insertLineInvoiceSQL(long idInvoice, long idItem, double cost, int cantidad)
-        {
-            try
-            {
-                openConnection();
+        //public long insertLineInvoiceSQL(long idInvoice, long idItem, double cost, int cantidad)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLInsertLineInvProv;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLInsertLineInvProv;
 
-                command.Parameters.AddWithValue("ID_FACTURA", idInvoice);
-                command.Parameters.AddWithValue("ID_ARTICULO", idItem);
-                command.Parameters.AddWithValue("CANTIDAD", cantidad);
-                command.Parameters.AddWithValue("IMPORTE", cost);
+        //        command.Parameters.AddWithValue("ID_FACTURA", idInvoice);
+        //        command.Parameters.AddWithValue("ID_ARTICULO", idItem);
+        //        command.Parameters.AddWithValue("CANTIDAD", cantidad);
+        //        command.Parameters.AddWithValue("IMPORTE", cost);
                 
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                //Recuperamos ID insertado
-                SQLiteCommand commandID = connection.CreateCommand();
-                commandID.CommandText = @"select last_insert_rowid()";
+        //        //Recuperamos ID insertado
+        //        SQLiteCommand commandID = connection.CreateCommand();
+        //        commandID.CommandText = @"select last_insert_rowid()";
 
-                long lastId = (long)commandID.ExecuteScalar();
+        //        long lastId = (long)commandID.ExecuteScalar();
 
-                closeConnection();
+        //        closeConnection();
 
-                return lastId;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return lastId;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public bool deleteLineInvoiceSQL(int id)
-        {
-            try
-            {
-                openConnection();
+        //public bool deleteLineInvoiceSQL(int id)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLDeleteLineInvProv;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLDeleteLineInvProv;
 
-                command.Parameters.AddWithValue("ID", id);
+        //        command.Parameters.AddWithValue("ID", id);
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                closeConnection();
+        //        closeConnection();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public bool deleteAllLinesInvoiceSQL(int id)
-        {
-            try
-            {
-                openConnection();
+        //public bool deleteAllLinesInvoiceSQL(int id)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLDeleteAllLineInvProv;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLDeleteAllLineInvProv;
 
-                command.Parameters.AddWithValue("ID_FACTURA", id);
+        //        command.Parameters.AddWithValue("ID_FACTURA", id);
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                closeConnection();
+        //        closeConnection();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public DataTable getAllLinesInvoiceSQL(int idInvoice)
-        {
-            try
-            {
-                openConnection();
+        //public DataTable getAllLinesInvoiceSQL(int idInvoice)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLGetLinesInvoiceProvById;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLGetLinesInvoiceProvById;
 
-                command.Parameters.AddWithValue("ID_FACTURA", idInvoice);
+        //        command.Parameters.AddWithValue("ID_FACTURA", idInvoice);
 
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-                DataTable invoices = new DataTable();
+        //        SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+        //        DataTable invoices = new DataTable();
 
-                adapter.SelectCommand = command;
-                adapter.Fill(invoices);
+        //        adapter.SelectCommand = command;
+        //        adapter.Fill(invoices);
 
-                closeConnection();
+        //        closeConnection();
 
-                return invoices;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return invoices;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public DataTable getLineInvoiceSQL(int idInvoiceLine)
-        {
-            try
-            {
-                openConnection();
+        //public DataTable getLineInvoiceSQL(int idInvoiceLine)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLGetLineInvProv;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLGetLineInvProv;
 
-                command.Parameters.AddWithValue("ID_FACTURA", idInvoiceLine);
+        //        command.Parameters.AddWithValue("ID_FACTURA", idInvoiceLine);
 
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-                DataTable invoices = new DataTable();
+        //        SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+        //        DataTable invoices = new DataTable();
 
-                adapter.SelectCommand = command;
-                adapter.Fill(invoices);
+        //        adapter.SelectCommand = command;
+        //        adapter.Fill(invoices);
 
-                closeConnection();
+        //        closeConnection();
 
-                return invoices;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return invoices;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public bool updateProviderInvoiceLineSQL(int id, string cantidad, string importe)
-        {
-            try
-            {
-                openConnection();
+        //public bool updateProviderInvoiceLineSQL(int id, string cantidad, string importe)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLUpdateProvInvLine;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLUpdateProvInvLine;
 
-                command.Parameters.AddWithValue("CANTIDAD", cantidad);
-                command.Parameters.AddWithValue("IMPORTE", importe);
+        //        command.Parameters.AddWithValue("CANTIDAD", cantidad);
+        //        command.Parameters.AddWithValue("IMPORTE", importe);
 
-                command.Parameters.AddWithValue("ID", id);
+        //        command.Parameters.AddWithValue("ID", id);
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                closeConnection();
+        //        closeConnection();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public bool deleteProviderInvoiceLineSQL(int id)
-        {
-            try
-            {
-                openConnection();
+        //public bool deleteProviderInvoiceLineSQL(int id)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLDeleteInvProvIle;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLDeleteInvProvIle;
 
-                command.Parameters.AddWithValue("ID", id);
+        //        command.Parameters.AddWithValue("ID", id);
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                closeConnection();
+        //        closeConnection();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        public bool existItemInvoiceLineSQL(int idItem)
-        {
-            try
-            {
-                openConnection();
+        //public bool existItemInvoiceLineSQL(int idItem)
+        //{
+        //    try
+        //    {
+        //        openConnection();
 
-                SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = SQLGetLineInvProvByItemID;
+        //        SQLiteCommand command = connection.CreateCommand();
+        //        command.CommandText = SQLGetLineInvProvByItemID;
 
-                command.Parameters.AddWithValue("ID_ARTICULO", idItem);
+        //        command.Parameters.AddWithValue("ID_ARTICULO", idItem);
 
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-                DataTable invoicesLines = new DataTable();
+        //        SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+        //        DataTable invoicesLines = new DataTable();
 
-                adapter.SelectCommand = command;
-                adapter.Fill(invoicesLines);
+        //        adapter.SelectCommand = command;
+        //        adapter.Fill(invoicesLines);
 
-                closeConnection();
+        //        closeConnection();
 
-                if (invoicesLines.Rows.Count > 0)
-                {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+        //        if (invoicesLines.Rows.Count > 0)
+        //        {
+        //            return true;
+        //        }
+        //        else {
+        //            return false;
+        //        }
                 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         #endregion
 
@@ -1251,6 +1293,42 @@ namespace DAL
                 closeConnection();
 
                 return tickets;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public bool existItemTicketLineSQL(int idItem)
+        {
+            try
+            {
+                openConnection();
+
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = SQLGetTicketLineByItemID;
+
+                command.Parameters.AddWithValue("ID_ARTICULO", idItem);
+
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                DataTable invoicesLines = new DataTable();
+
+                adapter.SelectCommand = command;
+                adapter.Fill(invoicesLines);
+
+                closeConnection();
+
+                if (invoicesLines.Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

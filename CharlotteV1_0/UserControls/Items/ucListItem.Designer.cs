@@ -32,14 +32,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnFilter = new System.Windows.Forms.Panel();
+            this.lbProv = new System.Windows.Forms.Label();
+            this.tbProv = new System.Windows.Forms.TextBox();
             this.lbName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lbProviderList = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvItem = new System.Windows.Forms.DataGridView();
-            this.lbProv = new System.Windows.Forms.Label();
-            this.tbProv = new System.Windows.Forms.TextBox();
             this.pnFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +57,24 @@
             this.pnFilter.Name = "pnFilter";
             this.pnFilter.Size = new System.Drawing.Size(779, 85);
             this.pnFilter.TabIndex = 8;
+            // 
+            // lbProv
+            // 
+            this.lbProv.AutoSize = true;
+            this.lbProv.Font = new System.Drawing.Font("Times New Roman", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProv.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbProv.Location = new System.Drawing.Point(250, 29);
+            this.lbProv.Name = "lbProv";
+            this.lbProv.Size = new System.Drawing.Size(69, 16);
+            this.lbProv.TabIndex = 7;
+            this.lbProv.Text = "Proveedor:";
+            // 
+            // tbProv
+            // 
+            this.tbProv.Location = new System.Drawing.Point(325, 25);
+            this.tbProv.Name = "tbProv";
+            this.tbProv.Size = new System.Drawing.Size(112, 20);
+            this.tbProv.TabIndex = 6;
             // 
             // lbName
             // 
@@ -111,6 +129,7 @@
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "ALTA";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dgvItem
             // 
@@ -143,24 +162,6 @@
             this.dgvItem.Size = new System.Drawing.Size(779, 294);
             this.dgvItem.TabIndex = 5;
             this.dgvItem.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItem_CellContentClick);
-            // 
-            // lbProv
-            // 
-            this.lbProv.AutoSize = true;
-            this.lbProv.Font = new System.Drawing.Font("Times New Roman", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProv.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbProv.Location = new System.Drawing.Point(250, 29);
-            this.lbProv.Name = "lbProv";
-            this.lbProv.Size = new System.Drawing.Size(69, 16);
-            this.lbProv.TabIndex = 7;
-            this.lbProv.Text = "Proveedor:";
-            // 
-            // tbProv
-            // 
-            this.tbProv.Location = new System.Drawing.Point(325, 25);
-            this.tbProv.Name = "tbProv";
-            this.tbProv.Size = new System.Drawing.Size(112, 20);
-            this.tbProv.TabIndex = 6;
             // 
             // ucListItem
             // 

@@ -84,7 +84,7 @@ namespace Utils
 
         public static bool SendStringToPrinter(string szPrinterName, string szString)
         {
-            if (ConfigurationManager.AppSettings["BackupPath"].ToString() == "Y")
+            if (ConfigurationManager.AppSettings["Debug"].ToString() == "Y")
             {
                 File.AppendAllText("log_CHARLOTTE.txt", szString + "\n", Encoding.UTF8);
             }

@@ -127,6 +127,12 @@
     <Compile Include="UserControls\InvoiceProviders\ucEditInvoiceProv.Designer.cs">
       <DependentUpon>ucEditInvoiceProv.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Items\ucAddItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Items\ucAddItem.Designer.cs">
+      <DependentUpon>ucAddItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Items\ucEditItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\InvoiceProviders\ucEditInvoiceProv.resx">
       <DependentUpon>ucEditInvoiceProv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Items\ucAddItem.resx">
+      <DependentUpon>ucAddItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Items\ucEditItem.resx">
       <DependentUpon>ucEditItem.cs</DependentUpon>

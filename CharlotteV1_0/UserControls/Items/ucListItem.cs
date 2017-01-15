@@ -58,6 +58,7 @@ namespace CharlotteV1_0
                         //Ocultamos columnas
                         dgvItem.Columns[0].Visible = false;
                         dgvItem.Columns[2].Visible = false;
+                        dgvItem.Columns[6].Visible = false;
 
                         dgvItem.Columns[1].Width = 130;
                         dgvItem.Columns[3].Width = 245;
@@ -106,7 +107,7 @@ namespace CharlotteV1_0
                         e.RowIndex >= 0)
                     {
                         int.TryParse(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), out Global.idItem);
-                        if (e.ColumnIndex == 6)
+                        if (e.ColumnIndex == 7)
                         {
                             if (Global.idItem == 1)
                             {
@@ -121,15 +122,15 @@ namespace CharlotteV1_0
                                 Cursor.Current = Cursors.Default;
                             }
                         }
-                        else if (e.ColumnIndex == 7)
+                        else if (e.ColumnIndex == 8)
                         {
                         if (Global.idItem == 1)
                         {
                             MessageBox.Show("Este articulo no se puede eliminar", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else if(Global.common.existItemInvoiceLineSQL(Global.idItem)){
+                        else if(Global.common.existItemTicketLineSQL(Global.idItem)){
 
-                            MessageBox.Show("Este articulo no se puede eliminar, hay lineas de factura asociadas al articulo", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Este articulo no se puede eliminar, hay tickets de venta asociadas al articulo", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -157,6 +158,13 @@ namespace CharlotteV1_0
                     Mail.gestionaError(ex.Message);Global.error = true;
                     MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+            private void btnAdd_Click(object sender, EventArgs e)
+            {
+                UserControl content = new ucAddItem();
+                Global.mainForm.pContent.Controls.Clear();
+                Global.mainForm.pContent.Controls.Add(content);
             }
         #endregion
 
@@ -188,5 +196,7 @@ namespace CharlotteV1_0
             return filter;
             }
         #endregion
+
+        
     }
 }

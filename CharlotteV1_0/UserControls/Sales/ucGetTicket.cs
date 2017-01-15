@@ -136,6 +136,7 @@ namespace CharlotteV1_0
                         //Ocultamos columnas
                         dgvItem.Columns[0].Visible = false;
                         dgvItem.Columns[2].Visible = false;
+                        dgvItem.Columns[6].Visible = false;
 
                         dgvItem.Columns[1].Width = 130;
                         dgvItem.Columns[3].Width = 250;
@@ -175,7 +176,7 @@ namespace CharlotteV1_0
                     if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                         e.RowIndex >= 0)
                     {
-                        if (e.ColumnIndex == 6)
+                        if (e.ColumnIndex == 7)
                         {
                             DataGridViewRow row;
                             int iCantidad = 0;

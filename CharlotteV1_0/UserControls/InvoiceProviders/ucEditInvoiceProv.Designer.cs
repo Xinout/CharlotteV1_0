@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.btnBack = new System.Windows.Forms.Button();
-            this.tbImporte = new System.Windows.Forms.TextBox();
-            this.lbPhone = new System.Windows.Forms.Label();
+            this.tbTotal = new System.Windows.Forms.TextBox();
+            this.lbTotal = new System.Windows.Forms.Label();
             this.lbEditProviderInvoiceLine = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
-            this.tbCantidad = new System.Windows.Forms.TextBox();
-            this.lbAddress = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnBack
@@ -50,34 +49,34 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // tbImporte
+            // tbTotal
             // 
-            this.tbImporte.Location = new System.Drawing.Point(257, 311);
-            this.tbImporte.Name = "tbImporte";
-            this.tbImporte.Size = new System.Drawing.Size(81, 20);
-            this.tbImporte.TabIndex = 22;
+            this.tbTotal.Location = new System.Drawing.Point(206, 256);
+            this.tbTotal.Name = "tbTotal";
+            this.tbTotal.Size = new System.Drawing.Size(81, 20);
+            this.tbTotal.TabIndex = 22;
             // 
-            // lbPhone
+            // lbTotal
             // 
-            this.lbPhone.AutoSize = true;
-            this.lbPhone.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lbPhone.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbPhone.Location = new System.Drawing.Point(131, 312);
-            this.lbPhone.Name = "lbPhone";
-            this.lbPhone.Size = new System.Drawing.Size(87, 19);
-            this.lbPhone.TabIndex = 27;
-            this.lbPhone.Text = "IMPORTE:";
+            this.lbTotal.AutoSize = true;
+            this.lbTotal.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lbTotal.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.lbTotal.Location = new System.Drawing.Point(134, 257);
+            this.lbTotal.Name = "lbTotal";
+            this.lbTotal.Size = new System.Drawing.Size(66, 19);
+            this.lbTotal.TabIndex = 27;
+            this.lbTotal.Text = "TOTAL:";
             // 
             // lbEditProviderInvoiceLine
             // 
             this.lbEditProviderInvoiceLine.AutoSize = true;
             this.lbEditProviderInvoiceLine.Font = new System.Drawing.Font("Times New Roman", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEditProviderInvoiceLine.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbEditProviderInvoiceLine.Location = new System.Drawing.Point(279, 118);
+            this.lbEditProviderInvoiceLine.Location = new System.Drawing.Point(211, 86);
             this.lbEditProviderInvoiceLine.Name = "lbEditProviderInvoiceLine";
-            this.lbEditProviderInvoiceLine.Size = new System.Drawing.Size(335, 31);
+            this.lbEditProviderInvoiceLine.Size = new System.Drawing.Size(340, 31);
             this.lbEditProviderInvoiceLine.TabIndex = 28;
-            this.lbEditProviderInvoiceLine.Text = "EDITAR LINEA FACTURA";
+            this.lbEditProviderInvoiceLine.Text = "EDITAR TOTAL FACTURA";
             // 
             // btnEdit
             // 
@@ -92,36 +91,28 @@
             this.btnEdit.UseVisualStyleBackColor = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // tbCantidad
+            // label3
             // 
-            this.tbCantidad.Location = new System.Drawing.Point(257, 272);
-            this.tbCantidad.Name = "tbCantidad";
-            this.tbCantidad.Size = new System.Drawing.Size(81, 20);
-            this.tbCantidad.TabIndex = 21;
-            // 
-            // lbAddress
-            // 
-            this.lbAddress.AutoSize = true;
-            this.lbAddress.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lbAddress.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbAddress.Location = new System.Drawing.Point(131, 273);
-            this.lbAddress.Name = "lbAddress";
-            this.lbAddress.Size = new System.Drawing.Size(99, 19);
-            this.lbAddress.TabIndex = 26;
-            this.lbAddress.Text = "CANTIDAD:";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(293, 255);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 19);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "€";
             // 
             // ucEditInvoiceProv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Beige;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.tbImporte);
-            this.Controls.Add(this.lbPhone);
+            this.Controls.Add(this.tbTotal);
+            this.Controls.Add(this.lbTotal);
             this.Controls.Add(this.lbEditProviderInvoiceLine);
             this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.tbCantidad);
-            this.Controls.Add(this.lbAddress);
             this.Name = "ucEditInvoiceProv";
             this.Size = new System.Drawing.Size(809, 730);
             this.Load += new System.EventHandler(this.ucEditInvoiceProv_Load);
@@ -133,11 +124,10 @@
         #endregion
 
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.TextBox tbImporte;
-        private System.Windows.Forms.Label lbPhone;
+        private System.Windows.Forms.TextBox tbTotal;
+        private System.Windows.Forms.Label lbTotal;
         private System.Windows.Forms.Label lbEditProviderInvoiceLine;
         private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.TextBox tbCantidad;
-        private System.Windows.Forms.Label lbAddress;
+        private System.Windows.Forms.Label label3;
     }
 }
