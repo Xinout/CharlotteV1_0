@@ -92,23 +92,35 @@ namespace DAL
 
         //VENTAS DEL DIA
         private String SQLInsertSalesDayTicket = "SELECT ARTICULO.DESCRIPCION, LINEA_TICKET.TOTAL, LINEA_TICKET.CANTIDAD, " +
-                                                 "TICKET.TARJETA FROM TICKET " +
+                                                 "TICKET.TARJETA, LINEA_TICKET.DESCUENTO FROM TICKET " +
                                                  "INNER JOIN LINEA_TICKET ON TICKET.ID = LINEA_TICKET.ID_TICKET " +
                                                  "INNER JOIN ARTICULO ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
                                                  "WHERE NOT(TICKET.REGALO = 1 AND TICKET.TARJETA = 0 AND TICKET.EFECTIVO = 0) AND TICKET.FECHA = ?";
 
         //BALANCE ANUAL POR PROVEEDOR
-        private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(FACTURA_BALANCE.TOTAL),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
-                                                        "LEFT OUTER JOIN FACTURA_BALANCE ON PROVEEDOR.ID = FACTURA_BALANCE.ID_PROVEEDOR AND substr(FACTURA_BALANCE.FECHA,7)||substr(FACTURA_BALANCE.FECHA,4,2)||substr(FACTURA_BALANCE.FECHA,1,2) BETWEEN ? AND ? " +
-                                                        "LEFT OUTER JOIN ARTICULO ON PROVEEDOR.ID = ARTICULO.ID_PROVEEDOR " +
-                                                        "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
-                                                        "LEFT OUTER JOIN TICKET ON LINEA_TICKET.ID_TICKET = TICKET.ID AND substr(TICKET.FECHA,7)||substr(TICKET.FECHA,4,2)||substr(TICKET.FECHA,1,2) BETWEEN ? AND ?" +
-                                                        "GROUP BY PROVEEDOR.NOMBRE ";
+        //private string SQLGetProvBalanceAnual = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(FACTURA_BALANCE.TOTAL),0) AS TOTAL_COMPRAS, IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
+        //                                                "LEFT OUTER JOIN FACTURA_BALANCE ON PROVEEDOR.ID = FACTURA_BALANCE.ID_PROVEEDOR AND substr(FACTURA_BALANCE.FECHA,7)||substr(FACTURA_BALANCE.FECHA,4,2)||substr(FACTURA_BALANCE.FECHA,1,2) BETWEEN ? AND ? " +
+        //                                                "LEFT OUTER JOIN ARTICULO ON PROVEEDOR.ID = ARTICULO.ID_PROVEEDOR " +
+        //                                                "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
+        //                                                "LEFT OUTER JOIN TICKET ON LINEA_TICKET.ID_TICKET = TICKET.ID AND substr(TICKET.FECHA,7)||substr(TICKET.FECHA,4,2)||substr(TICKET.FECHA,1,2) BETWEEN ? AND ?" +
+        //                                                "GROUP BY PROVEEDOR.NOMBRE ";
+        private string SQLGetPurchasesBySup = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(FACTURA_BALANCE.TOTAL),0) AS TOTAL_COMPRAS FROM PROVEEDOR " +
+                                          "LEFT OUTER JOIN FACTURA_BALANCE ON PROVEEDOR.ID = FACTURA_BALANCE.ID_PROVEEDOR AND substr(FACTURA_BALANCE.FECHA,7)||substr(FACTURA_BALANCE.FECHA,4,2)||substr(FACTURA_BALANCE.FECHA,1,2) BETWEEN ? AND ? " +
+                                          "GROUP BY PROVEEDOR.NOMBRE";
+
+        private string SQLGetSalesBySup = "SELECT PROVEEDOR.NOMBRE AS PROVEEDOR,  IFNULL(SUM(LINEA_TICKET.TOTAL), 0) AS TOTAL_VENTAS FROM PROVEEDOR " +
+                                          "LEFT OUTER JOIN ARTICULO ON PROVEEDOR.ID = ARTICULO.ID_PROVEEDOR " +
+                                          "LEFT OUTER JOIN LINEA_TICKET ON ARTICULO.ID = LINEA_TICKET.ID_ARTICULO " +
+                                          "LEFT OUTER JOIN TICKET ON LINEA_TICKET.ID_TICKET = TICKET.ID AND substr(TICKET.FECHA,7)||substr(TICKET.FECHA,4,2)||substr(TICKET.FECHA,1,2) BETWEEN ? AND ? " +
+                                          "GROUP BY PROVEEDOR.NOMBRE";
 
         //private String prueba = "SELECT FACTURA.FECHA, PROVEEDOR.NOMBRE" +
         //                                         "INNER JOIN FACTURA ON FACTURA.ID_PROVEEDOR = PROVEEDOR.ID " +
         //                                         "WHERE TICKET.NOMBRE = ?";
 
+        //CIERRE
+        private String SQLGetIdCloseDateSQL = "SELECT * FROM CIERRE WHERE FECHA = ?";
+        private String SQLInsertCloseDateSQL = "INSERT INTO CIERRE(FECHA) VALUES(?)";
 
         #region "Constructor"
 
@@ -1345,12 +1357,16 @@ namespace DAL
             openConnection();
 
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = SQLGetProvBalanceAnual;
+            command.CommandText = SQLGetPurchasesBySup;
 
             command.Parameters.AddWithValue("FECHA_INI", strIni);
             command.Parameters.AddWithValue("FECHA_FIN", strFin);
-            command.Parameters.AddWithValue("FECHA_INI2", strIni);
-            command.Parameters.AddWithValue("FECHA_FIN2", strFin);
+
+            SQLiteCommand command2 = connection.CreateCommand();
+
+            command2.CommandText = SQLGetSalesBySup;
+            command2.Parameters.AddWithValue("FECHA_INI2", strIni);
+            command2.Parameters.AddWithValue("FECHA_FIN2", strFin);
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             DataTable balance = new DataTable();
@@ -1358,10 +1374,85 @@ namespace DAL
             adapter.SelectCommand = command;
             adapter.Fill(balance);
 
+            SQLiteDataAdapter adapter2 = new SQLiteDataAdapter();
+            DataTable balance2 = new DataTable();
+
+            adapter2.SelectCommand = command2;
+            adapter2.Fill(balance2);
+
+            balance.Columns.Add("TOTAL_VENTAS", typeof(System.Double));
+
+            int i = 0;
+            foreach (DataRow dr in balance.Rows)
+            {
+                dr[2] = balance2.Rows[i][1];
+                i++;
+            }
+
             closeConnection();
 
             return balance;
-        } 
+        }
+        #endregion
+
+        #region "Cierre"
+        public DataTable getIdCloseDateSQL(string strFecha)
+        {
+            try
+            {
+                openConnection();
+
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = SQLGetIdCloseDateSQL;
+
+                command.Parameters.AddWithValue("FECHA", strFecha);
+
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                DataTable lastReg = new DataTable();
+
+                adapter.SelectCommand = command;
+                adapter.Fill(lastReg);
+
+                closeConnection();
+
+                return lastReg;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public long insertCloseDateSQL(string date)
+        {
+            try
+            {
+                openConnection();
+
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = SQLInsertCloseDateSQL;
+
+                command.Parameters.AddWithValue("FECHA", date);
+
+                command.ExecuteNonQuery();
+
+                //Recuperamos ID insertado
+                SQLiteCommand commandID = connection.CreateCommand();
+                commandID.CommandText = @"select last_insert_rowid()";
+
+                long lastId = (long)commandID.ExecuteScalar();
+
+                closeConnection();
+
+                return lastId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         #endregion
 
     }

@@ -151,5 +151,22 @@ namespace CharlotteV1_0
                 MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                UserControl content = new ucListItem();
+                Global.mainForm.pContent.Controls.Clear();
+                Global.mainForm.pContent.Controls.Add(content);
+                Cursor.Current = Cursors.Default;
+            }
+            catch (Exception ex)
+            {
+                Mail.gestionaError(ex.Message); Global.error = true;
+                MessageBox.Show("ERROR", "Charlotte", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -93,8 +93,18 @@ namespace CharlotteV1_0
 
                     if (sales.Rows.Count >= 0)
                     {
+                        long idFactura = 0;
+                        DataTable dt = Global.common.getIdCloseDateSQL(DateTime.Now.ToShortDateString());
+                        if (dt.Rows.Count > 0)
+                        {
+                            idFactura = Global.common.insertCloseDateSQL(DateTime.Now.ToShortDateString());
+                        }
+                        else
+                        {
+                            long.TryParse(dt.Rows[0][0].ToString(), out idFactura);
+                        }
                         Ticket ticket = new Ticket();
-                        ticket.getClosingCash(sales, DateTime.Now.ToShortDateString());
+                        ticket.getClosingCash(sales, DateTime.Now.ToShortDateString(), idFactura);
                     }
 
                 }

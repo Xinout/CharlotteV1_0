@@ -167,6 +167,7 @@
             this.btnBack.TabIndex = 31;
             this.btnBack.Text = "VOLVER A LISTADO";
             this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lbAddItem
             // 

@@ -27,7 +27,7 @@ namespace Utils
                 }
                 
                 //Cabecera
-                Ticket1.TextoCentro("CHARLOTTE"); // imprime en el centro "Venta mostrador"
+                Ticket1.TextoCentro("CRINS CB"); // imprime en el centro "Venta mostrador"
                 Ticket1.TextoCentro("C/ Collado 17 Local-puerta 4");
                 Ticket1.TextoCentro("42002 Soria");
                 Ticket1.TextoCentro("Cif. E42213124");
@@ -127,34 +127,40 @@ namespace Utils
             return true;
         }
 
-        public bool getClosingCash(DataTable dtItems, string date)
+        public bool getClosingCash(DataTable dtItems, string date, long idFactura)
         {
             try
             {
-                CreaTicket Ticket1 = new CreaTicket();
+                CreaTicket Ticket1 = new CreaTicket(); 
 
                 //Cabecera
-                Ticket1.TextoCentro("CHARLOTTE"); // imprime en el centro "Venta mostrador"
+                Ticket1.TextoCentro("CRINS CB"); // imprime en el centro "Venta mostrador"
                 Ticket1.TextoCentro("C/ Collado 17 Local-puerta 4");
                 Ticket1.TextoCentro("42002 Soria");
                 Ticket1.TextoCentro("Cif. E42213124");
                 Ticket1.TextoCentro("Telf. 975 030627");
 
                 Ticket1.TextoIzquierda("CAJA DEL DIA:");
-                Ticket1.TextoIzquierda("REALIZADA: " + date + " " + DateTime.Now.ToShortTimeString() + "\n");
+                Ticket1.TextoIzquierda("REALIZADA: " + date + " " + DateTime.Now.ToShortTimeString() + "   N.FRA "+ idFactura +"\n");
 
                 //Venta por agente
                 //Ticket1.TextoIzquierda("VENTA POR AGENTE:");
                 //Ticket1.EncabezadoVentaPorAgente();
 
                 int iUnidades = 0, iAux = 0;
-                double dTotal = 0, dAux = 0, dTarjeta = 0, dEfectivo = 0;
+                double dTotal = 0, dAux = 0, dTarjeta = 0, dEfectivo = 0, dDesc = 0;
                 bool bAux;
                 for (int i = 0; i < dtItems.Rows.Count; i++)
                 {
                     double.TryParse(dtItems.Rows[i][1].ToString(), out dAux);
                     int.TryParse(dtItems.Rows[i][2].ToString(), out iAux);
                     bool.TryParse(dtItems.Rows[i][3].ToString(), out bAux);
+                    double.TryParse(dtItems.Rows[i][4].ToString(), out dDesc);
+
+                    if (dDesc > 0)
+                    {
+                        dAux = redondea(dAux);
+                    }
 
                     iUnidades += iAux;
                     dTotal += dAux * iAux;
@@ -180,6 +186,12 @@ namespace Utils
                 {
                     double.TryParse(dtItems.Rows[i][1].ToString(), out dAux);
                     int.TryParse(dtItems.Rows[i][2].ToString(), out iAux);
+                    double.TryParse(dtItems.Rows[i][4].ToString(), out dDesc);
+
+                    if (dDesc > 0)
+                    {
+                        dAux = redondea(dAux);
+                    }
 
                     dPerc = (dAux * iAux) * 100 / dTotal;
 
@@ -230,7 +242,7 @@ namespace Utils
                 CreaTicket Ticket1 = new CreaTicket();
 
                 //Cabecera
-                Ticket1.TextoCentro("CHARLOTTE"); // imprime en el centro "Venta mostrador"
+                Ticket1.TextoCentro("CRINS CB"); // imprime en el centro "Venta mostrador"
                 Ticket1.TextoCentro("C/ Collado 17 Local-puerta 4");
                 Ticket1.TextoCentro("42002 Soria");
                 Ticket1.TextoCentro("Cif. E42213124");
@@ -267,7 +279,7 @@ namespace Utils
                 CreaTicket Ticket1 = new CreaTicket();
 
                 //Cabecera
-                Ticket1.TextoCentro("CHARLOTTE"); 
+                Ticket1.TextoCentro("CRINS CB"); 
                 Ticket1.TextoCentro("C/ Collado 17 Local-puerta 4");
                 Ticket1.TextoCentro("42002 Soria");
                 Ticket1.TextoCentro("Cif. E42213124");
@@ -326,7 +338,7 @@ namespace Utils
                 CreaTicket Ticket1 = new CreaTicket();
 
                 //Cabecera
-                Ticket1.TextoCentro("CHARLOTTE"); // imprime en el centro "Venta mostrador"
+                Ticket1.TextoCentro("CRINS CB"); // imprime en el centro "Venta mostrador"
                 Ticket1.TextoCentro("C/ Collado 17 Local-puerta 4");
                 Ticket1.TextoCentro("42002 Soria");
                 Ticket1.TextoCentro("Cif. E42213124");
